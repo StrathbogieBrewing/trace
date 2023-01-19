@@ -20,7 +20,8 @@ ISR(SPI_STC_vect) {
         trace_tail += 1;
         trace_tail &= TRACE_BUFFER_MASK;
     } else {
-        SPCR &= ~(1 << SPIE);
+        // SPCR &= ~(1 << SPIE);
+        SPDR = 0x00;
     }
 }
 
@@ -28,6 +29,8 @@ void trace_init(void) {
     DDRB |= (1 << PORTB2) | (1 << PORTB3) | (1 << PORTB5);
     PORTB |= (1 << PORTB3);
     SPCR = (1 << MSTR) | (1 << SPE) | (1 << SPR0) | (1 << SPR1) | (1 << CPHA) | (0 << CPOL);
+    SPCR |= (1 << SPIE);
+    SPDR = 0x00;
 }
 
 void trace_write(uint8_t data[], uint8_t size) {
