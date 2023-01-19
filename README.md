@@ -1,2 +1,2 @@
 # trace
-Trace for test and debug of software
+Trace tool for test and debug of software
